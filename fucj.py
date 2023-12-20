@@ -1,47 +1,22 @@
-def dhondt(n, m, s):
-  """
-  Computes the minimum and maximum votes for each party in the JAG Kingdom election.
+A = [15,36,65,15,22,53,7]
 
-  Args:
-    n: The total number of valid votes.
-    m: The number of parties.
-    s: The number of seats won by each party.
-
-  Returns:
-    A list of tuples, where each tuple contains the minimum and maximum votes for each party.
-  """
-
-  # Check if the given situation is possible.
-  if sum(s) > n:
-    return "impossible"
-
-  # Initialize the votes for each party.
-  votes = [0] * m
-
-  # Iterate over the parties.
-  for i in range(m):
-    # Compute the quota for each party.
-    quota = n / (m + 1) * s[i]
-
-    # Assign votes to each party until the quota is met.
-    while votes[i] < quota:
-      votes[i] += 1
-
-  # Return the minimum and maximum votes for each party.
-  return [(votes[i] - 1, votes[i]) for i in range(m)]
-
-
-if __name__ == "__main__":
-  # Read the input.
-  n, m = map(int, input().split())
-  s = list(map(int, input().split()))
-
-  # Compute the minimum and maximum votes for each party.
-  results = dhondt(n, m, s)
-
-  # Print the results.
-  if results == "impossible":
-    print("impossible")
-  else:
-    for result in results:
-      print(*result)
+def quick_sort(A, left, right):
+    if left < right:
+        i = left + 1
+        j = right
+        pivot = A[left]
+        while i <= j :
+            while i <= right and A[i] <= pivot : i += 1
+            while i >= left and A[j] > pivot : j -= 1
+            if i < j: A[i], A[j] = A[j], A[i]
+            print_qs(A)
+        A[left], A[j] = A[j], A[left]
+        print_qs(A)
+        quick_sort(A, left, j-1)
+        quick_sort(A, j+1, right)
+s = 1
+def print_qs(A):
+    global s
+    print("Step",s,"=",A)
+    s += 1
+quick_sort(A,0,6)
